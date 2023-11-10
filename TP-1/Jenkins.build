@@ -1,0 +1,54 @@
+pipeline {
+    environment {
+        registry = "efrei2023/devops-tp1"
+        registryCredential = 'DockerHubEfrei'
+        dockerImage = ''
+    }
+
+    agent any
+
+    stages {
+        stage('Cloning Git') {
+            steps {
+                git branch: 'main', credentialsId: 'BitBucketEfrei', url: 'https://efrei_2023@bitbucket.org/efrei2023/practical-exercises.git'
+            }
+        }
+        stage('Building backend image') {
+            steps{
+                script {
+                    dir ('backend')
+                    {
+                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    }
+                }
+            }
+        }
+
+        stage('Building frontend image') {
+            steps{
+                script {
+                    dir ('frontend')
+                    {
+                      dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    }
+                }
+            }
+        }
+     
+        stage('Publish Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy image') {
+            steps{
+                sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER "
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@ The main objective of this work is to know how to build an application based on 
 
 ## Requirements ##
 
-* Jenkins (jenkins/jenkins:lts-jdk17) with Docker Pipeline  
+* Jenkins (jenkins/jenkins:lts-jdk17) with Docker Pipeline plugin.
 
 ## Instructions for carrying out the work ##
 
@@ -20,7 +20,7 @@ git clone https://bitbucket.org/efrei2023/practical-exercises.git
   * Git : <https://bitbucket.org/efrei2023/practical-exercises.git>
     * username: efrei_2023
     * password: ATBBzvHf2cYPLnq8hnreNm52Un5wBB6FF145
-  * Docker Hub : efrei2023/devops-tp1
+  * Docker Hub Repos : efrei2023/backend, efrei2023/frontend
     * username: efrei2023
     * password: efrei2023
 * Create a network for docker infrastructure:
@@ -31,7 +31,7 @@ git clone https://bitbucket.org/efrei2023/practical-exercises.git
 
 ### Git repository structure
 
-* backend : A PostgreSQL database consisting of one table with some students (see bakend/database.sql).
+* backend : A PostgreSQL database consisting of one table with some students (see backend/database.sql).
 
 * frontend : The webapp that retrieves the students from the database and shows them in a HTML page. This webapp is build using Flask (a Python Microframework).
 
@@ -76,3 +76,22 @@ To make sure your container is up and running, check the logs with the command:
      docker logs frontend-$MAME:YEAR_OF_BIRTH
      docker logs backend-$MAME:YEAR_OF_BIRTH
    ```
+
+Open your browser and go to <http://localhost:8081>. You will now see the books from the database displayed by the webapp.
+
+## 3. Automation with jenkins : use your virtual machine as jenkins slave
+
+Repeat steps 1 and 2 using a Jenkins pipeline. You can use the example file: Jenkins.build
+Modify the database to display only your first and last name.
+
+## Deployment orchestration : docker-compose ##
+
+To run the containers you had to execute commands. It would be easier if we only had to execute one command. We can achieve this by using Docker Compose.
+
+Analyse the docker-compose.yml file to run the webapp (frontend) and the database (backend).
+
+* Run `docker-compose build' to build the containers specified in the docker-compose file.
+
+* Run docker-compose up to start the containers (add -d to run them in the background. Then run docker-compose stop when done.)
+
+* Browse to <http://localhost:8081> to see the response from the web app.

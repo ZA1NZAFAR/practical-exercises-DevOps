@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  backend:
+    #image: "efrei2023/backend:1"
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - efrei_net
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    #image: "efrei2023/frontend:1"
+    networks:
+      - efrei_net
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    
+networks:
+  efrei_net:
+    driver: bridge

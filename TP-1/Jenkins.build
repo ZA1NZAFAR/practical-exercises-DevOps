@@ -1,54 +1,67 @@
+def backendImage = ''
+def frontendImage = ''
 pipeline {
-    environment {
-        registry = "efrei2023/devops-tp1"
-        registryCredential = 'DockerHubEfrei'
-        dockerImage = ''
+
+  agent {
+    label 'jenkins-slave'
+  }
+
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git credentialsId: 'BitBucketEfrei', url: 'https://efrei_2023@bitbucket.org/efrei2023/practical-exercises.git'
+      }
+    }
+    stage('Building backend image') {
+      steps {
+        script {
+          dir('TP-1/backend') {
+            backendImage = docker.build("efrei2023/backend:1")
+
+          }
+        }
+      }
+    }
+    stage('Publish Backend Image') {
+      steps {
+        script {
+          withDockerRegistry(credentialsId: 'DockerHubEfrei') {
+            backendImage.push()
+          }
+
+        }
+      }
     }
 
-    agent any
-
-    stages {
-        stage('Cloning Git') {
-            steps {
-                git branch: 'main', credentialsId: 'BitBucketEfrei', url: 'https://efrei_2023@bitbucket.org/efrei2023/practical-exercises.git'
-            }
+    stage('Building frontend image') {
+      steps {
+        script {
+          dir('TP-1/frontend') {
+            frontendImage = docker.build("efrei2023/frontend:1")
+          }
         }
-        stage('Building backend image') {
-            steps{
-                script {
-                    dir ('backend')
-                    {
-                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                    }
-                }
-            }
-        }
-
-        stage('Building frontend image') {
-            steps{
-                script {
-                    dir ('frontend')
-                    {
-                      dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                    }
-                }
-            }
-        }
-     
-        stage('Publish Image') {
-            steps{
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-
-        stage('Deploy image') {
-            steps{
-                sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER "
-            }
-        }
+      }
     }
+
+    stage('Publish Frontend Image') {
+      steps {
+        script {
+          withDockerRegistry(credentialsId: 'DockerHubEfrei') {
+            frontendImage.push()
+          }
+        }
+      }
+    }
+
+    stage('Deploy backend conatainer') {
+      steps {
+        echo "Run  backend conatiner "
+      }
+    }
+    stage('Deploy frontend conatainer') {
+      steps {
+        echo "Run  backend conatainer "
+      }
+    }
+  }
 }

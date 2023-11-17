@@ -11,6 +11,8 @@ To achieve this goal, you need to have the following tools already installed and
 * Virtulbox with a working Linux distribution: e.g. Fedora, Debian/Ubuntu with root access
 On the deployed virtual machine, you must have the following tools installed
   * Docker 24.0.7 or higher
+  * M inikube version: v1.31.2 or higher
+  * Kubernetes CLI (kubectl) v1.28.3 or higher
   * Docker compose v2.23.0 or higher
   * Jenkins version jenkins/jenkins:lts-jdk17 with suggested plugins selected by default running on the VM.
   * Git version 2.41.0 or higher
@@ -37,4 +39,4 @@ Below is a summary of the content of each workshops.  The TP-1, TP-2 and TP-3 fo
 * Monitor the application / platform
   * Install and configure Prometheus / Grafana / AlertManager stack
   * Install node_exporter and view metrics on Grafana
-  * Install Loki/promtail (log centralization)c
+  * Install Loki/promtail (log centralization)

@@ -22,7 +22,7 @@ pipeline {
         }
       }
     }
-    stage('Publish Backend Image') {
+    stage('Publish backend Image') {
       steps {
         script {
           withDockerRegistry(credentialsId: 'DockerHubEfrei') {
@@ -43,7 +43,7 @@ pipeline {
       }
     }
 
-    stage('Publish Frontend Image') {
+    stage('Publish frontend Image') {
       steps {
         script {
           withDockerRegistry(credentialsId: 'DockerHubEfrei') {
@@ -53,14 +53,14 @@ pipeline {
       }
     }
 
-    stage('Deploy backend conatainer') {
+    stage('Deploy backend container') {
       steps {
         echo "Run  backend conatiner "
       }
     }
-    stage('Deploy frontend conatainer') {
+    stage('Deploy frontend container') {
       steps {
-        echo "Run  backend conatainer "
+        echo "Run  backend container "
       }
     }
   }

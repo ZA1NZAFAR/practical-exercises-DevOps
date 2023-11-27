@@ -15,6 +15,9 @@ Run `minikube start --driver=docker` to have Minikube download an ISO image and 
 
 Minikube will automatically create a configuration file that `kubectl` can use to connect to the Kubernetes cluster.
 
+Kubernetes organizes all of its resources into namespaces by different projects or teams. You must create a namespace in which to do all the work required. 
+To create a namespace `kubectl create namespace $NAMESPACE` and use it by default: `kubectl config set-context --current --namespace=NAMESPACE`.
+
 ## Part 2: Pods, Deployments, and Services
 
 In this part, you'll use `kubectl` to create Kubernetes pods, deployments, and services without getting into any of the details around these concepts.

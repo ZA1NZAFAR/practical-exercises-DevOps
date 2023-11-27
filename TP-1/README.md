@@ -54,8 +54,6 @@ git clone https://bitbucket.org/efrei2023/practical-exercises.git
      docker build -t frontend-$MAME:YEAR_OF_BIRTH .
    ```
 
-* Build frontend by using Buildpack
-
 ## 2. Running the backend and frontend
 
 * Run the 'backend' container with the following  command :

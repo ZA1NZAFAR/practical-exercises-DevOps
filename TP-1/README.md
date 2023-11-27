@@ -45,13 +45,13 @@ git clone https://bitbucket.org/efrei2023/practical-exercises.git
   * Go to the 'backend' directory and type the command :
 
    ```console
-     docker build -t backend-$MAME:YEAR_OF_BIRTH .
+     docker build -t backend-$NAME:YEAR_OF_BIRTH .
    ```
 
   * Go to the 'frontend' directory and type the command :
 
    ```console
-     docker build -t frontend-$MAME:YEAR_OF_BIRTH .
+     docker build -t frontend-$NAME:YEAR_OF_BIRTH .
    ```
 
 ## 2. Running the backend and frontend
@@ -59,20 +59,20 @@ git clone https://bitbucket.org/efrei2023/practical-exercises.git
 * Run the 'backend' container with the following  command :
 
    ```console
-     docker run -d --net=efrei -e POSTGRES_PASSWORD=postgres --name backend backend-$MAME:YEAR_OF_BIRTH
+     docker run -d --net=efrei -e POSTGRES_PASSWORD=postgres --name backend backend-$NAME:YEAR_OF_BIRTH
    ```
 
 * Run the 'frontend' container with the following  command :
 
    ```console
-     docker run -d --net=efrei  -p 8081:80 -e POSTGRES_PASSWORD=postgres --name frontend frontend-$MAME:YEAR_OF_BIRTH
+     docker run -d --net=efrei  -p 8081:80 -e POSTGRES_PASSWORD=postgres --name frontend frontend-$NAME:YEAR_OF_BIRTH
    ```
 
 To make sure your container is up and running, check the logs with the command:
 
-  ```console
-     docker logs frontend-$MAME:YEAR_OF_BIRTH
-     docker logs backend-$MAME:YEAR_OF_BIRTH
+   ```console
+     docker logs frontend
+     docker logs backend
    ```
 
 Open your browser and go to <http://localhost:8081>. You will now see the books from the database displayed by the webapp.

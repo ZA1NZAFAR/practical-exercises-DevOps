@@ -16,7 +16,7 @@ Run `minikube start --driver=docker` to have Minikube download an ISO image and 
 Minikube will automatically create a configuration file that `kubectl` can use to connect to the Kubernetes cluster.
 
 Kubernetes organizes all of its resources into namespaces by different projects or teams. You must create a namespace in which to do all the work required. 
-To create a namespace `kubectl create namespace $NAMESPACE` and use it by default: `kubectl config set-context --current --namespace=NAMESPACE`.
+To create a namespace `kubectl create namespace dev` and use it by default: `kubectl config set-context --current --namespace=dev`.
 
 ## Part 2: Pods, Deployments, and Services
 
@@ -36,8 +36,16 @@ In this part, you'll use `kubectl` to create Kubernetes pods, deployments, and s
 
 7. Run `kubectl describe service nginx-service` to get more details on the pod created by step 1. Note the "Selector" line, which shows that this service is using the "app=nginx-web" label to note the pods that will be part of this service.
 
-8. Delete the service and the deployment using `kubectl delete service nginx-service` and `kubectl delete deployment nginx-web`, respectively. Use `kubectl get pods` to verify that deleting the deployment also deleted the pod.
+8. Scale Deployment Use Cases:
+   Run  `kubectl scale deployment --replicas=N nginx-web`
+  
+   - Handling Traffic / Performing Load Testing
+   - Maintaining High Availability
+   - Adjusting Horizontal Auto-Scaling
+   - Optimizing Resource Utilization
 
+9. Delete the service and the deployment using `kubectl delete service nginx-service` and `kubectl delete deployment nginx-web`, respectively. Use `kubectl get pods` to verify that deleting the deployment also deleted the pod.
+. 
 ## Part 3: Manage our backend and frontend application
 
 In this final part, you'll examine more details on pods, deployments, and services, and work with the YAML files that define these objects in Kubernetes.
@@ -51,6 +59,8 @@ Type the following command:
 ```console
  kubectl create secret docker-registry efrei2023  --docker-server=docker.io  --docker-username=efrei2023 --docker-password=efrei2023 --docker-email=abdoulzak@proton.me
 ```
+
+Cette fois ci nous allons supposer que nous sommes dans un environnement de production. Remember to create the namespace 'prod' and use it by default.
 
 # Backend deployment
 

@@ -24,15 +24,15 @@ In this part, you'll use `kubectl` to create Kubernetes pods, deployments, and s
 
 1. Use `kubectl create deployment nginx-web --image=nginx` to create a deployment witch launch an Nginx pod. This may take a few minutes as it must pull the Nginx container image down from the Internet.
 
-2. Run `kubectl get pod,deployment` to see that the previous step created a deployment object as well as a single pod (managed by the deployment).
+2. Run `kubectl get pods,deployments` to see that the previous step created a deployment object as well as a single pod (managed by the deployment).
 
 3. Run `kubectl describe deployment <deployment-name>` to get more details on the deployment created by step 1.
 
 4. Run `kubectl describe pod <pod-name>` to get more details on the pod created by step 1.
 
-5. Use `kubectl expose deployment nginx-web --name nginx-service --port=8888` to make this Nginx pod accessible outside the cluster.
+5. Use `kubectl expose deployment nginx-web --name nginx-service --port=8888` to create a service in order to make this Nginx pod accessible outside the cluster.
 
-6. Use `kubectl get pod,deployment,service` to see the objects created by the previous two steps. You should see a single deployment, a single pod, and a single service.
+6. Use `kubectl get pods,deployments,service` to see the objects created by the previous two steps. You should see a single deployment, a single pod, and a single service.
 
 7. Run `kubectl describe service nginx-service` to get more details on the pod created by step 1. Note the "Selector" line, which shows that this service is using the "app=nginx-web" label to note the pods that will be part of this service.
 
